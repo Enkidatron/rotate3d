@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import math
 from rotate3dclasses import Object3d
@@ -34,8 +35,10 @@ def axis_angle_to_rotation_matrix(x, y, z, angle):
 	return first + second + third
 
 def main():
-	inputfilename = "C:\\dev\\rotate3d\\teapot.obj"
-	outputfilename = "rotated_teapot.obj"
+	inputfilename = "teapot.obj"
+	if len(sys.argv) > 1:
+		inputfilename = sys.argv[1]
+	outputfilename = 'rotated_{}'.format(inputfilename)
 	obj3d = read_obj(inputfilename)
 	rotation = axis_angle_to_rotation_matrix(0,0,1,(np.pi/2))
 	obj3d.rotate(rotation)
