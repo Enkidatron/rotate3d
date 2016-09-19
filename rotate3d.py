@@ -80,12 +80,13 @@ def main():
 	parser = argparse.ArgumentParser(description="Load a 3d object, rotate it, and write the result to a new file.")
 	parser.add_argument('input', nargs="?", default="teapot.obj", help="The path to the input file.")
 	parser.add_argument('-d', '--degrees', type=float, default=90.0, help="The number of degrees to rotate the object.")
+	parser.add_argument('-v', '--volume-center', action='store_true', help="Use the center of the objects volume as the rotation point (default: mean of the vertices)")
 	args = parser.parse_args()
 
 	outputfilename = 'rotated_{}'.format(args.input)
 	obj3d = read_obj(args.input)
 	rotation = axis_angle_to_rotation_matrix(0,0,1,math.radians(args.degrees))
-	obj3d.rotate(rotation)
+	obj3d.rotate(rotation, args.volume_center)
 	obj3d.write_to_file(outputfilename)
 
 if __name__ == '__main__':
