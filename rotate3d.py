@@ -10,9 +10,16 @@ class Object3d:
 		self.vn = vn
 		self.f = f
 
-	def rotate(self, rmatrix):
-		"""Rotate this object by the provided rotation matrix"""
-		self.v = self.v.dot(rmatrix)
+	def rotate(self, rmatrix, center_by_volume = False):
+		"""Rotate this object by the provided rotation matrix.
+
+		center_by_volume -- if true, use the center of the volume as the rotation point, 
+			otherwise, use the mean of the vertexes"""
+		if center_by_volume:
+			offset = (self.v.max(axis=0) + self.v.min(axis=0)) / 2
+		else:
+			offset = self.v.mean(axis=0)
+		self.v = (self.v - offset).dot(rmatrix) + offset
 		self.vn = self.vn.dot(rmatrix)
 
 	def write_to_file(self, filename):
