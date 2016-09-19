@@ -34,7 +34,7 @@ def write_section(f, identifier, array):
 	"""Write the identifier and points from array to file f."""
 	f.write('\n')
 	for item in array:
-		f.write('{} {} {} {}\n'.format(identifier, item[0], item[1], item[2]))
+		f.write('{}  {}  {}  {}\n'.format(identifier, round(item[0],6), round(item[1],6), round(item[2],6)))
 
 def read_obj(filename):
 	"""Open the provided file and parse the contents as an .obj file. 
