@@ -78,8 +78,8 @@ def main():
 	"""Load 3d object from file (default teapot.obj), rotate it 90 degrees around the Z axis, 
 	and write the result to a new file."""
 	parser = argparse.ArgumentParser(description="Load a 3d object, rotate it, and write the result to a new file.")
-	parser.add_argument('input', nargs="?", default="teapot.obj", help="The path to the input file.")
-	parser.add_argument('-d', '--degrees', type=float, default=90.0, help="The number of degrees to rotate the object.")
+	parser.add_argument('input', nargs="?", default="teapot.obj", help="The path to the input file (default: teapot.obj)")
+	parser.add_argument('-d', '--degrees', type=float, default=90.0, help="The number of degrees to rotate the object (default: 90.0)")
 	parser.add_argument('-v', '--volume-center', action='store_true', help="Use the center of the objects volume as the rotation point (default: mean of the vertices)")
 	parser.add_argument('-x', type=float, default=0, help="X coordinate of axis vector (default: 0) (default vector: 0,0,1)")
 	parser.add_argument('-y', type=float, default=0, help="Y coordinate of axis vector (default: 0) (default vector: 0,0,1)")
