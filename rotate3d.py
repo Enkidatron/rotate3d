@@ -81,11 +81,18 @@ def main():
 	parser.add_argument('input', nargs="?", default="teapot.obj", help="The path to the input file.")
 	parser.add_argument('-d', '--degrees', type=float, default=90.0, help="The number of degrees to rotate the object.")
 	parser.add_argument('-v', '--volume-center', action='store_true', help="Use the center of the objects volume as the rotation point (default: mean of the vertices)")
+	parser.add_argument('-x', type=float, default=0, help="X coordinate of axis vector (default: 0) (default vector: 0,0,1)")
+	parser.add_argument('-y', type=float, default=0, help="Y coordinate of axis vector (default: 0) (default vector: 0,0,1)")
+	parser.add_argument('-z', type=float, default=0, help="Z coordinate of axis vector (default: 0) (default vector: 0,0,1)")
 	args = parser.parse_args()
+	if args.x == 0 and args.y == 0 and args.z == 0:
+		(x,y,z) = (0,0,1)
+	else:
+		(x,y,z) = (args.x, args.y, args.z)
 
 	outputfilename = 'rotated_{}'.format(args.input)
 	obj3d = read_obj(args.input)
-	rotation = axis_angle_to_rotation_matrix(0,0,1,math.radians(args.degrees))
+	rotation = axis_angle_to_rotation_matrix(x,y,z,math.radians(args.degrees))
 	obj3d.rotate(rotation, args.volume_center)
 	obj3d.write_to_file(outputfilename)
 
