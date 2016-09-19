@@ -77,7 +77,6 @@ def axis_angle_to_rotation_matrix(x, y, z, angle):
 def main():
 	"""Load 3d object from file (default teapot.obj), rotate it 90 degrees around the Z axis, 
 	and write the result to a new file."""
-	rotation = axis_angle_to_rotation_matrix(0,0,1,(np.pi/2))
 	parser = argparse.ArgumentParser(description="Load a 3d object, rotate it, and write the result to a new file.")
 	parser.add_argument('input', nargs="?", default="teapot.obj", help="The path to the input file.")
 	parser.add_argument('-d', '--degrees', type=float, default=90.0, help="The number of degrees to rotate the object.")
@@ -85,6 +84,7 @@ def main():
 
 	outputfilename = 'rotated_{}'.format(args.input)
 	obj3d = read_obj(args.input)
+	rotation = axis_angle_to_rotation_matrix(0,0,1,math.radians(args.degrees))
 	obj3d.rotate(rotation)
 	obj3d.write_to_file(outputfilename)
 
