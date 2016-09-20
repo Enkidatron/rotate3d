@@ -99,6 +99,11 @@ class TestRotate3dObject3d(unittest.TestCase):
 		self.obj2.rotate(rotate3d.axis_angle_to_rotation_matrix(0,0,1,math.radians(90)), True)
 		np.testing.assert_array_equal(self.obj1.v, self.obj2.v)
 
+	def test_noncolinear_axis(self):
+		self.obj1.rotate(rotate3d.axis_angle_to_rotation_matrix(1,0,0,math.radians(90)), True)
+		self.obj2.rotate(rotate3d.axis_angle_to_rotation_matrix(1,0,0,math.radians(90)), False)
+		self.assertRaises(AssertionError, np.testing.assert_array_almost_equal, self.obj1.v, self.obj2.v)
+
 	def test_rotation_does_not_affect_faces(self):
 		self.obj1.rotate(rotate3d.axis_angle_to_rotation_matrix(0,0,1,math.radians(90)), False)
 		np.testing.assert_array_equal(self.obj1.f, self.obj2.f)
