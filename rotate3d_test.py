@@ -51,6 +51,14 @@ class TestRotate3dObject3d(unittest.TestCase):
 		self.obj1 = rotate3d.Object3d('test_object_1', np.array(v), np.array(vn), np.array(f))
 		self.obj2 = rotate3d.Object3d('test_object_2', np.array(v), np.array(vn), np.array(f))
 
+	def test_object_init(self):
+		v = [[1,1,-1],[1,-1,-1],[-1,-1,-1],[-1,1,-1],[0,0,1]]
+		vn = []
+		f = [[1,2,5],[2,3,5],[3,4,5],[4,1,5]]		
+		np.testing.assert_array_equal(self.obj1.v, v)
+		np.testing.assert_array_equal(self.obj1.vn, vn)
+		np.testing.assert_array_equal(self.obj1.f, f)
+
 	def test_value_equivalence(self):
 		np.testing.assert_array_equal(self.obj1.v, self.obj2.v)
 		np.testing.assert_array_equal(self.obj1.vn, self.obj2.vn)
