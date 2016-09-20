@@ -19,8 +19,10 @@ class Object3d:
 			offset = (self.v.max(axis=0) + self.v.min(axis=0)) / 2
 		else:
 			offset = self.v.mean(axis=0)
-		self.v = (self.v - offset).dot(rmatrix) + offset
-		self.vn = self.vn.dot(rmatrix)
+		if self.v.size > 0:
+			self.v = (self.v - offset).dot(rmatrix) + offset
+		if self.vn.size > 0:
+			self.vn = self.vn.dot(rmatrix)
 
 	def write_to_file(self, filename):
 		"""Write the current state of this object to a file in .obj format."""
